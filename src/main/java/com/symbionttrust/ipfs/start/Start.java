@@ -12,7 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.symbionttrust.ipfs.cli.IpfsCliImpl;
+import com.symbionttrust.ipfs.cli.IpfsCli;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Start {
 
-    private final IpfsCliImpl ipfsCli;
+    private final IpfsCli ipfsCli;
 
     @PostConstruct( )
     public void start() {
