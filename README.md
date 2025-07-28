@@ -73,10 +73,21 @@ IP address.
 
 ## Instructions to get your ipfs node up and running
 
-Go to:
+Download IPFS Desktop
 
-https://ipfs.tech/
+```
+https://docs.ipfs.tech/install/ipfs-desktop/
+```
 
+When you open IPFS Desktop it internally runs:
 
+```
+go-ipfs 
+```
+go-ipfs is an IPFS node written in the Go language
 
+You can also access the node via a browser:
 
+```
+http://127.0.0.1:5001/webui
+```
