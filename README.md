@@ -41,7 +41,7 @@ And ipfs resource can be retrieved like:
 https://my-node.com/ipfs/<ipfs-hash>
 ```
 
-Now if we want to serve the content given by the <ipns-hash> without remembering the hash we can do
+Now if we want to serve the content given by the ``<ipns-hash>`` without remembering the hash we can do
 some domain configuration so the content can be retrieved just by typing in the browser:
 
 ```
@@ -91,3 +91,12 @@ You can also access the node via a browser:
 ```
 http://127.0.0.1:5001/webui
 ```
+
+## API of java-ipfs-http-client
+
+See:  
+
+```
+https://github.com/ipfs-shipyard/java-ipfs-http-client
+```
+

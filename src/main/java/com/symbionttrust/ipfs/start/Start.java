@@ -12,7 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.symbionttrust.ipfs.helper.IpfsHelper;
+import com.symbionttrust.ipfs.helper.IpfsApiHelper;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +27,12 @@ import lombok.RequiredArgsConstructor;
 public class Start {
 
     // @Autowired
-    private final IpfsHelper ipfsHelper;
+    private final IpfsApiHelper ipfsHelper;
 
     @PostConstruct( )
     public void start() {
 
-        ipfsHelper.hello();
+        //ipfsHelper.
     }
 
 

@@ -14,6 +14,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.symbionttrust.ipfs.helper.key.IpfsKeyHelper;
+
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
@@ -25,9 +27,10 @@ import lombok.RequiredArgsConstructor;
  */
 @Component
 @RequiredArgsConstructor
-public class IpfsHelperImpl implements IpfsHelper {
+public class IpfsApiHelperImpl implements IpfsApiHelper {
 
     private final IPFS ipfs;
+    private final IpfsKeyHelper ipfsKeyHelper;
 
     @Override
     public String addFile( File file ) throws IOException {
@@ -51,4 +54,41 @@ public class IpfsHelperImpl implements IpfsHelper {
 
         ipfs.pin.add( Multihash.fromBase58( cid ) );
     }
+
+
+    @Override
+    public String generateKey( String name, String type, int size ) throws IOException {
+
+        return ipfsKeyHelper.generateKey( name, type, size );
+    }
+
+
+    @Override
+    public Map<String, String> listKeys() throws IOException {
+
+        return ipfsKeyHelper.listKeys();
+    }
+
+
+    @Override
+    public String publishWithKey( String keyName, String cid ) throws IOException {
+
+        return ipfsKeyHelper.publishWithKey( keyName, cid );
+    }
+
+
+    @Override
+    public void removeKey( String keyName ) throws IOException {
+
+        ipfsKeyHelper.removeKey( keyName );
+        
+    }
+
+
+    @Override
+    public void renameKey( String oldName, String newName ) throws IOException {
+
+        ipfsKeyHelper.renameKey( oldName, newName );
+    }
+
 }
