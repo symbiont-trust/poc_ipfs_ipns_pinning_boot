@@ -15,7 +15,6 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -58,31 +57,44 @@ public class IpfsKeyHelperImpl implements IpfsKeyHelper {
     }
 
 
+    // Generates a new named keypair (e.g., RSA 2048) and returns its IPNS hash.
     @Override
-    public String generateKey( String name, String type, int size ) throws IOException {
+    public String generateKey( String name, KeyEnum keyType ) throws IOException {
 
-        var response = post( "/key/gen", Map.of( "arg", name, "type", type, "size", String.valueOf(
-                size ) ) );
+        String type = keyType.getType();
+        String size = keyType.getSize().toString();
+
+        var response =
+                post( "/key/gen",
+                        Map.of( "arg", name, "type", type, "size", String.valueOf( size ) ) );
+
         return new JSONObject( response ).getString( "Id" );
     }
 
 
+    // Lists existing named keys and their IPNS hashes.
     @Override
-    public Map<String, String> listKeys() throws IOException {
+    public KeyInfo[] listKeys() throws IOException {
 
-        var response = post( "/key/list", Map.of() );
-        var keys = new JSONObject( response ).getJSONArray( "Keys" );
-        Map<String, String> result = new LinkedHashMap<>();
+        var response = post("/key/list", Map.of());
+        var keys = new JSONObject(response).getJSONArray("Keys");
+        KeyInfo[] result = new KeyInfo[keys.length()];
 
-        for ( int i = 0; i < keys.length(); i++ ) {
-            JSONObject key = keys.getJSONObject( i );
-            result.put( key.getString( "Name" ), key.getString( "Id" ) );
+        for (int i = 0; i < keys.length(); i++) {
+            
+            JSONObject key = keys.getJSONObject(i);
+            
+            result[i] = new KeyInfo(
+                key.getString("Name"),
+                key.getString("Id")
+            );
         }
 
         return result;
     }
 
 
+    // Publishes a CID using the specified key name, returning the IPNS name.
     @Override
     public String publishWithKey( String keyName, String cid ) throws IOException {
 
@@ -91,6 +103,7 @@ public class IpfsKeyHelperImpl implements IpfsKeyHelper {
     }
 
 
+    // Removes a named key by name.
     @Override
     public void removeKey( String keyName ) throws IOException {
 
@@ -98,6 +111,7 @@ public class IpfsKeyHelperImpl implements IpfsKeyHelper {
     }
 
 
+    // Renames an existing key
     @Override
     public void renameKey( String oldName, String newName ) throws IOException {
 

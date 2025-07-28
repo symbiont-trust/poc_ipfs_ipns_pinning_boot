@@ -9,7 +9,6 @@
 package com.symbionttrust.ipfs.helper.key;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * @author John Dickerson - 28 Jul 2025
@@ -17,11 +16,11 @@ import java.util.Map;
 public interface IpfsKeyHelper {
 
     // Generates a new named keypair (e.g., RSA 2048) and returns its IPNS hash.
-    String generateKey( String name, String type, int size ) throws IOException;
+    String generateKey( String name, KeyEnum keyType ) throws IOException;
 
 
     // Lists existing named keys and their IPNS hashes.
-    Map<String, String> listKeys() throws IOException;
+    KeyInfo[] listKeys() throws IOException;
 
 
     // Publishes a CID using the specified key name, returning the IPNS name.

@@ -10,11 +10,12 @@ package com.symbionttrust.ipfs.helper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.symbionttrust.ipfs.helper.key.IpfsKeyHelper;
+import com.symbionttrust.ipfs.helper.key.KeyEnum;
+import com.symbionttrust.ipfs.helper.key.KeyInfo;
 
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
@@ -32,6 +33,7 @@ public class IpfsApiHelperImpl implements IpfsApiHelper {
     private final IPFS ipfs;
     private final IpfsKeyHelper ipfsKeyHelper;
 
+    // Add a file to IPFS and get its ipfs hash
     @Override
     public String addFile( File file ) throws IOException {
 
@@ -41,14 +43,8 @@ public class IpfsApiHelperImpl implements IpfsApiHelper {
     }
 
 
-    @Override
-    public String publishToIpns( String cid ) throws IOException {
-
-        Map<?, ?> result = ipfs.name.publish( Multihash.fromBase58( cid ) );
-        return result.get( "Name" ).toString(); // IPNS key (e.g. Qmb123...)
-    }
-
-
+    // pin the IPFS resource so it is not ejected from cache when the IPFS node
+    // is running low on space.
     @Override
     public void pinFile( String cid ) throws IOException {
 
@@ -56,27 +52,32 @@ public class IpfsApiHelperImpl implements IpfsApiHelper {
     }
 
 
+    // Generates a new named keypair (e.g., RSA 2048) and returns its IPNS hash
     @Override
-    public String generateKey( String name, String type, int size ) throws IOException {
+    public String generateKey( String name, KeyEnum keyEnum ) throws IOException {
 
-        return ipfsKeyHelper.generateKey( name, type, size );
+        return ipfsKeyHelper.generateKey( name, keyEnum );
     }
 
 
+    // Lists existing named keys and their IPNS hashes
     @Override
-    public Map<String, String> listKeys() throws IOException {
+    public KeyInfo[] listKeys() throws IOException {
 
         return ipfsKeyHelper.listKeys();
     }
 
 
+    // Publishes a CID using the specified key name, returning the IPNS name
+    // The cid is the hash from adding a file to IPFS
     @Override
-    public String publishWithKey( String keyName, String cid ) throws IOException {
+    public String publishIPNS( String keyName, String cid ) throws IOException {
 
         return ipfsKeyHelper.publishWithKey( keyName, cid );
     }
 
 
+    // Removes a named key by name
     @Override
     public void removeKey( String keyName ) throws IOException {
 
@@ -85,6 +86,7 @@ public class IpfsApiHelperImpl implements IpfsApiHelper {
     }
 
 
+    // Renames an existing key
     @Override
     public void renameKey( String oldName, String newName ) throws IOException {
 
