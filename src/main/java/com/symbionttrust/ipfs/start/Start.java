@@ -20,10 +20,13 @@ import lombok.RequiredArgsConstructor;
 /**
  * This class is the entry point. The start method is called by Spring once it has autowired the 
  * app.  The lombok @RequiredArgsConstructor generates a constructor which passes IpfsCku in.
- * 
+ * <p>
  * At startup it scans the classpath for an implemntation of the IpfsCli interface and injects it.
- * 
+ * <p>
  * This is equivalent to marking the IpfsCli with @Autowired
+ * <p>
+ * Since Spring version 4.3, Spring will autowire without the @Autowired annotation if there is a
+ * constructor.
  * 
  * @author John Dickerson - 26 Jul 2025
  */
