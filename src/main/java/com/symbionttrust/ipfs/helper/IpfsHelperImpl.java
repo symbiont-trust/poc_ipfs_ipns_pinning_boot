@@ -30,12 +30,6 @@ public class IpfsHelperImpl implements IpfsHelper {
     private final IPFS ipfs;
 
     @Override
-    public void hello() {
-
-        System.out.println( "hello" );
-    }
-
-
     public String addFile( File file ) throws IOException {
 
         NamedStreamable.FileWrapper wrapper = new NamedStreamable.FileWrapper( file );
@@ -44,6 +38,7 @@ public class IpfsHelperImpl implements IpfsHelper {
     }
 
 
+    @Override
     public String publishToIpns( String cid ) throws IOException {
 
         Map<?, ?> result = ipfs.name.publish( Multihash.fromBase58( cid ) );
@@ -51,6 +46,7 @@ public class IpfsHelperImpl implements IpfsHelper {
     }
 
 
+    @Override
     public void pinFile( String cid ) throws IOException {
 
         ipfs.pin.add( Multihash.fromBase58( cid ) );
