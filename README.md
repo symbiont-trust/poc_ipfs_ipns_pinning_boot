@@ -79,6 +79,12 @@ Download IPFS Desktop
 https://docs.ipfs.tech/install/ipfs-desktop/
 ```
 
+I downloaded it from here:
+
+```
+https://github.com/ipfs/ipfs-desktop/releases
+```
+
 When you open IPFS Desktop it internally runs:
 
 ```
@@ -100,3 +106,20 @@ See:
 https://github.com/ipfs-shipyard/java-ipfs-http-client
 ```
 
+## Instructions:
+
+Import into STS as a maven project
+
+Behind the scenes it will run:
+
+```
+mvn install
+```
+
+Then find this class:
+
+```
+com.symbionttrust.ipfs.start.Start
+```
+
+Run it
