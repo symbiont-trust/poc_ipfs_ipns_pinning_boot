@@ -10,11 +10,12 @@ package com.symbionttrust.ipfs.start;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.event.EventListener;
 
 import com.symbionttrust.ipfs.cli.IpfsCli;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -37,10 +38,19 @@ public class Start {
 
     private final IpfsCli ipfsCli;
 
+    /**
     @PostConstruct( )
     public void start() {
-
         ipfsCli.run();
+    }
+    * 
+    */
+
+
+    @EventListener( ApplicationReadyEvent.class )
+    public void launchCli() {
+
+        new Thread( ipfsCli::run, "IpfsCliThread" ).start();
     }
 
 

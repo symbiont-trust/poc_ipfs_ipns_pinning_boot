@@ -73,6 +73,15 @@ IP address.
 
 ## Instructions to get your ipfs node up and running
 
+### Installing IPFS Desktop
+
+This is good for playing around when NOT running this app.
+
+For some reason running this example twice has issues on the second time when using the Desktop
+version of IPFS. 
+
+Anyways to install it:
+
 Download IPFS Desktop
 
 ```
@@ -97,6 +106,67 @@ You can also access the node via a browser:
 ```
 http://127.0.0.1:5001/webui
 ```
+
+### Install command line version
+
+#### On the Mac:
+
+Install IPFS
+
+```
+brew install ipfs
+```
+
+#### On Windows
+@todo
+    
+    
+#### One Unix flavours
+@todo
+
+
+### Basic commands of command line version
+Initialize the IPFS repository
+
+```
+ipfs init
+```
+
+Start the IPFS daemon
+
+```
+ipfs daemon
+```
+Check your node ID:
+
+```
+ipfs id
+```
+
+View your config:
+
+```
+ipfs config show
+```
+
+Show connected peers
+
+```
+ipfs swarm peers
+```
+
+Add a file to IPFS and get its uuid
+
+```
+ipfs add myfile.txt
+```
+
+Retrieve a file from IPFS
+
+```
+ipfs get <CID>
+```
+
 
 ## API of java-ipfs-http-client
 

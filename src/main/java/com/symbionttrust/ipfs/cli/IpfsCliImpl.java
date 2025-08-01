@@ -34,7 +34,9 @@ public class IpfsCliImpl implements IpfsCli {
 
         Scanner scanner = new Scanner( System.in );
 
-        while ( true ) {
+        Boolean keepRunning = true;
+
+        while ( keepRunning ) {
 
             printMenu();
             System.out.print( "Choose an option: " );
@@ -51,7 +53,7 @@ public class IpfsCliImpl implements IpfsCli {
                     case "7" -> renameKey( scanner );
                     case "x" -> {
                         System.out.println( "Exiting CLI." );
-                        return;
+                        keepRunning = false;
                     }
                     default -> System.out.println( "Invalid option." );
                 }
