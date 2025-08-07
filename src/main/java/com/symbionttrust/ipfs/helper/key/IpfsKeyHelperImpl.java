@@ -30,7 +30,6 @@ import lombok.RequiredArgsConstructor;
 public class IpfsKeyHelperImpl implements IpfsKeyHelper {
 
     private final HttpClient httpClient;
-
     private static final String BASE_URL = "http://localhost:5001/api/v0";
 
     private String post( String endpoint, Map<String, String> params ) throws IOException {
