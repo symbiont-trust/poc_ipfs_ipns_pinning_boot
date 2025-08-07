@@ -10,6 +10,8 @@ package com.symbionttrust.ipfs.helper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -68,12 +70,20 @@ public class IpfsApiHelperImpl implements IpfsApiHelper {
     }
 
 
+    public String publishToIpns( String cid ) throws IOException {
+
+        Map<?, ?> result = ipfs.name.publish( Multihash.fromBase58( cid ) );
+        return result.get( "Name" ).toString(); // IPNS key (e.g. Qmb123...)
+    }
+
     // Publishes a CID using the specified key name, returning the IPNS name
     // The cid is the hash from adding a file to IPFS
     @Override
     public String publishIPNS( String keyName, String cid ) throws IOException {
 
-        return ipfsKeyHelper.publishWithKey( keyName, cid );
+        Multihash hash = Multihash.fromBase58( cid );
+        Map<?, ?> result = ipfs.name.publish( hash, Optional.of( keyName ) );
+        return result.get( "Name" ).toString();
     }
 
 

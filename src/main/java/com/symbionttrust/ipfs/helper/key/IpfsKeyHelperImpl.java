@@ -29,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class IpfsKeyHelperImpl implements IpfsKeyHelper {
 
+    private final HttpClient httpClient;
+
     private static final String BASE_URL = "http://localhost:5001/api/v0";
 
     private String post( String endpoint, Map<String, String> params ) throws IOException {
@@ -46,12 +48,12 @@ public class IpfsKeyHelperImpl implements IpfsKeyHelper {
                 .POST( HttpRequest.BodyPublishers.noBody() )
                 .build();
 
-        HttpClient client = HttpClient.newHttpClient();
 
         try {
-            return client.send( request, HttpResponse.BodyHandlers.ofString() ).body();
+            return httpClient.send( request, HttpResponse.BodyHandlers.ofString() ).body();
         }
         catch ( InterruptedException e ) {
+
             throw new IOException( "Request interrupted", e );
         }
     }
@@ -95,12 +97,14 @@ public class IpfsKeyHelperImpl implements IpfsKeyHelper {
 
 
     // Publishes a CID using the specified key name, returning the IPNS name.
+    /*
     @Override
-    public String publishWithKey( String keyName, String cid ) throws IOException {
-
+    public String publishToIpnsWithKey( String keyName, String cid ) throws IOException {
+    
         var response = post( "/name/publish", Map.of( "arg", cid, "key", keyName ) );
         return new JSONObject( response ).getString( "Name" );
     }
+    */
 
 
     // Removes a named key by name.

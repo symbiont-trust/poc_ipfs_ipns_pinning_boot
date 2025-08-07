@@ -32,6 +32,10 @@ public class IpfsCliImpl implements IpfsCli {
     @Override
     public void run() {
 
+        Thread.getAllStackTraces().keySet().stream()
+                .filter( t -> t.getName().contains( "Shutdown" ) )
+                .forEach( t -> System.out.println( "Hook: " + t ) );
+
         Scanner scanner = new Scanner( System.in );
 
         Boolean keepRunning = true;
@@ -54,6 +58,7 @@ public class IpfsCliImpl implements IpfsCli {
                     case "x" -> {
                         System.out.println( "Exiting CLI." );
                         keepRunning = false;
+                        // System.exit( 0 );
                     }
                     default -> System.out.println( "Invalid option." );
                 }

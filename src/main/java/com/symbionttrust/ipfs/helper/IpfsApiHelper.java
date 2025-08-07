@@ -27,6 +27,8 @@ public interface IpfsApiHelper {
     KeyInfo[] listKeys() throws IOException;
 
 
+    String publishToIpns( String cid ) throws IOException;
+
     // Publishes a CID using the specified key name, returning the IPNS name
     // The cid is the hash from adding a file to IPFS
     String publishIPNS( String keyName, String cid ) throws IOException;
