@@ -102,5 +102,4 @@ public class IpfsApiHelperImpl implements IpfsApiHelper {
 
         ipfsKeyHelper.renameKey( oldName, newName );
     }
-
 }

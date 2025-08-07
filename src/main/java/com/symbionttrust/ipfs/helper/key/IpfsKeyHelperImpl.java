@@ -96,17 +96,6 @@ public class IpfsKeyHelperImpl implements IpfsKeyHelper {
     }
 
 
-    // Publishes a CID using the specified key name, returning the IPNS name.
-    /*
-    @Override
-    public String publishToIpnsWithKey( String keyName, String cid ) throws IOException {
-    
-        var response = post( "/name/publish", Map.of( "arg", cid, "key", keyName ) );
-        return new JSONObject( response ).getString( "Name" );
-    }
-    */
-
-
     // Removes a named key by name.
     @Override
     public void removeKey( String keyName ) throws IOException {

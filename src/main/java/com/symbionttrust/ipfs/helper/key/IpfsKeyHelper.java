@@ -22,9 +22,6 @@ public interface IpfsKeyHelper {
     // Lists existing named keys and their IPNS hashes.
     KeyInfo[] listKeys() throws IOException;
 
-    // Publishes a CID using the specified key name, returning the IPNS name.
-    // String publishToIpnsWithKey( String keyName, String cid ) throws IOException;
-
 
     // Removes a named key by name.
     void removeKey( String keyName ) throws IOException;

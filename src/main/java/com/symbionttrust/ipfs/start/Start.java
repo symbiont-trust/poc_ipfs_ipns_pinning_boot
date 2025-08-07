@@ -36,6 +36,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Start {
 
+    // @RequiredArgsConstructor is creating a constructor and in later versions of Spring it is 
+    // injected via constructors even without using the @Autowired annotation
     private final IpfsCli ipfsCli;
 
     /**
@@ -43,10 +45,11 @@ public class Start {
     public void start() {
         ipfsCli.run();
     }
-    * 
     */
 
 
+    // This is better than using @PostConstruct as otherwise the application only prints it has
+    // started when it is ending
     @EventListener( ApplicationReadyEvent.class )
     public void launchCli() {
 
